@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Final Check Lab — Home</title>
+    <!-- shared head   -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+
+    <!-- Page-specific styles for Partners section -->
+    <style>
+      /* Hero content styles */
+      .hero-text-content {
+        margin-top: 20px;
+      }
+
+      .read-more-btn {
+        background: var(--accent);
+        color: #061a33;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 10px;
+        transition: background 0.3s ease;
+      }
+
+      .read-more-btn:hover {
+        background: #a0c4e4;
+      }
+
+      .partners {
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .partners h3 {
+        margin-bottom: 24px;
+        font-size: 24px;
+      }
+      .logo-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+      .logo-container img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+      }
+      .social {
+        text-align: center;
+        padding: 30px 0;
+      }
+      .social a {
+        display: inline-block;
+        margin: 0 10px;
+        padding: 10px 20px;
+        border: 2px solid #00d1b2;
+        border-radius: 3px;
+        text-decoration: none;
+      }
+      footer a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #666;
+      }
+      .footer-inner {
+        text-align: center;
+        padding: 16px 0 24px;
+      }
+
+      .logo-slider {
+        overflow: hidden;
+        background: #061a33; /* optional */
+        width: 10%;
+      }
+
+      .logo-slider {
+        display: flex;
+        justify-content: center; /* center horizontally */
+        align-items: center;
+        overflow: hidden;
+        margin: 20px auto;
+        width: 10%;
+      }
+
+      .logo-slide-track {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .logo-slide-track img {
+        width: 80px;
+        height: 80px;
+        margin: 0 15px;
+        object-fit: contain;
+        flex-wrap: auto;
+      }
+      /* section akani xwarawa */
+      .about-brief {
+        text-align: center;
+        padding: 20px 20px;
+        background: #061a33; /* light background */
+      }
+
+      .about-brief h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+        color: #061a33;
+      }
+
+      .about-brief p {
+        max-width: 600px;
+        margin: 0 auto 30px;
+        font-size: 16px;
+        color: #ffffff;
+      }
+
+      .features {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+
+      .feature {
+        max-width: 150px;
+        text-align: center;
+      }
+      .feature img {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 15px;
+        object-fit: contain;
+      }
+
+      .feature h4 {
+        font-size: 16px;
+        color: #061a33;
+        margin-top: 8px;
+      }
+      /* section i dwam */
+
+      .mission-vision {
+        background: #061a33; /* dark blue */
+        color: #fff;
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      .mv-container {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        gap: 40px;
+        flex-wrap: wrap;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .mv-box {
+        flex: 1 1 20px;
+        background: #022dd800;
+        padding: 40px 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      .mv-box:hover {
+        transform: translateY(-5px);
+      }
+
+      .mv-box img {
+        width: 400px;
+        height: 400px;
+        margin-bottom: 30px;
+      }
+
+      .mv-box h3 {
+        font-size: 22px;
+        margin-bottom: 12px;
+        color: #00d1b2; /* accent green/teal */
+      }
+
+      .mv-box p {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #dddddd;
+      }
+
+      /* Animation */
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-115%);
+        }
+      }
+
+      /* Search Icon in Navbar */
+      .nav-search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-icon {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: background 0.3s ease;
+      }
+
+      .search-icon:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .search-input-container {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        margin-top: 10px;
+        background: rgba(6, 26, 51, 0.95);
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        z-index: 100;
+        min-width: 280px;
+      }
+
+      .search-input-container.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .search-input-container input {
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .search-input-container input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .search-input-container button {
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        background: var(--accent);
+        color: #061a33;
+        margin-top: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+
+      .search-input-container button:hover {
+        background: #a0c4e4;
+      }
+
+      @media (max-width: 900px) {
+        .nav-search-container {
+          order: -1;
+          margin-right: auto;
+          margin-left: 10px;
+        }
+
+        .search-input-container {
+          right: auto;
+          left: 0;
+          min-width: 250px;
+        }
+      }
+
+      /* Additional responsive styles for index page */
+      @media (max-width: 768px) {
+        .partners {
+          padding: 30px 16px;
+        }
+
+        .partners h3 {
+          font-size: 20px;
+          margin-bottom: 20px;
+        }
+
+        .logo-container {
+          gap: 20px;
+        }
+
+        .logo-container img {
+          width: 60px;
+          height: 60px;
+        }
+
+        .about-brief {
+          padding: 20px 16px;
+        }
+
+        .about-brief h2 {
+          font-size: 24px;
+          margin-bottom: 12px;
+        }
+
+        .about-brief p {
+          font-size: 14px;
+          margin: 0 auto 20px;
+          max-width: 100%;
+        }
+
+        .features {
+          gap: 30px;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .feature {
+          max-width: 200px;
+        }
+
+        .feature img {
+          width: 80px;
+          height: 80px;
+        }
+
+        .feature h4 {
+          font-size: 14px;
+        }
+
+        .mission-vision {
+          padding: 40px 16px;
+        }
+
+        .mv-container {
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .mv-box {
+          padding: 30px 20px;
+        }
+
+        .mv-box img {
+          width: 200px;
+          height: 200px;
+          margin-bottom: 20px;
+        }
+
+        .mv-box h3 {
+          font-size: 18px;
+          margin-bottom: 10px;
+        }
+
+        .mv-box p {
+          font-size: 14px;
+        }
+
+        .social {
+          padding: 20px 16px;
+        }
+
+        .social a {
+          display: block;
+          margin: 8px auto;
+          max-width: 200px;
+          text-align: center;
+          padding: 12px 16px;
+        }
+
+        .logo-slider {
+          width: 100%;
+          margin: 15px auto;
+        }
+
+        .logo-slide-track img {
+          width: 60px;
+          height: 60px;
+          margin: 0 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .partners h3 {
+          font-size: 18px;
+        }
+
+        .logo-container img {
+          width: 50px;
+          height: 50px;
+        }
+
+        .about-brief h2 {
+          font-size: 20px;
+        }
+
+        .about-brief p {
+          font-size: 13px;
+        }
+
+        .feature img {
+          width: 60px;
+          height: 60px;
+        }
+
+        .mv-box img {
+          width: 150px;
+          height: 150px;
+        }
+
+        .mv-box h3 {
+          font-size: 16px;
+        }
+
+        .mv-box p {
+          font-size: 13px;
+        }
+
+        .logo-slide-track img {
+          width: 45px;
+          height: 45px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- nav -->
+
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="index.html" aria-label="Final Check Lab home">
+        <div class="logo">
+          <img src="mylog.png" alt="Final Check Lab logo" />
+        </div>
+        <span>Final Check Lab</span>
+      </a>
+
+      <div class="navlinks" id="navlinks">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Our Service</a>
+        <a href="certifications.html">Certification</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div class="nav-search-container">
+        <button class="search-icon" id="searchToggle" aria-label="Search">
+          🔍
+        </button>
+        <div class="search-input-container" id="searchContainer">
+          <input
+            type="text"
+            id="nav-page-search"
+            placeholder="Search pages..."
+            aria-label="Search pages"
+          />
+          <button onclick="searchPageFromNav()">Search</button>
+        </div>
+      </div>
+
+      <button
+        class="burger"
+        id="burger"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="navlinks"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- hero/slider -->
+    <header class="hero">
+      <div class="slides" aria-live="polite">
+        <div class="slide active">
+          <img src="H1.PNG" alt="Final Check Lab hero" />
+        </div>
+        <div class="slide">
+          <img
+            src="C:\Users\Binary Zone\Desktop\leraya shtakant\final-check-lab\H1.PNG"
+            alt="Lab equipment"
+          />
+        </div>
+        <div class="slide"><img src="kkkk.jpg" alt="Team discussion" /></div>
+        <div class="slide"><img src="rr.jpg" alt="Quality assurance" /></div>
+      </div>
+
+      <div class="hero-overlay"></div>
+
+      <button
+        class="arrow left"
+        id="prev"
+        aria-label="Previous slide"
+        title="Previous"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+
+      <button
+        class="arrow right"
+        id="next"
+        aria-label="Next slide"
+        title="Next"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+
+      <div class="hero-content">
+        <h2>
+          Certainty, Delivered. Your Trusted Partner for Inspection &
+          <span style="color: var(--accent)"> Testing</span>
+        </h2>
+        <p>
+          Certainty, Delivered. Your Trusted Partner for Inspection & Testing
+        </p>
+        <p>
+          Uncompromising Accuracy, Unbiased Results, and Actionable Insights for
+          Your Most Critical Decisions.
+        </p>
+        <div class="hero-text-content">
+          <p class="hero-preview">
+            In a world where safety, quality, and compliance are non-negotiable,
+            you need a partner you can rely on...
+          </p>
+          <p class="hero-full" style="display: none">
+            In a world where safety, quality, and compliance are non-negotiable,
+            you need a partner you can rely on. At Final Check, we provide the
+            definitive clarity you need through rigorous testing and meticulous
+            inspections. Our certified experts and state-of-the-art technology
+            deliver the accurate, reliable data that protects your assets,
+            ensures regulatory compliance, and gives you the confidence to move
+            forward
+          </p>
+          <button class="read-more-btn" onclick="toggleReadMore()">
+            Read More
+          </button>
+        </div>
+        <div class="cta-row"></div>
+      </div>
+
+      <div class="dots" id="dots" aria-label="Slider pagination"></div>
+    </header>
+
+    <div class="spacer"></div>
+
+    <!-- Mission & Vision Section -->
+
+    <section class="mission-vision">
+      <div class="mv-container">
+        <div class="mv-box" onclick="location.href='about.html';">
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 300px;
+            "
+          >
+            <img
+              src="h5.JPG"
+              alt="Mission"
+              style="
+                max-width: 100%;
+                max-height: 100%;
+                width: auto;
+                height: auto;
+                object-fit: contain;
+              "
+            />
+          </div>
+          <h3>Our Mission</h3>
+          <p>
+            Our mission is to be a trusted partner in LPG safety by offering
+            professional testing, inspection, and certification services. We
+            strive to combine technical expertise with integrity to safeguard
+            communities and industries.
+          </p>
+        </div>
+        <div class="mv-box" onclick="location.href='services.html';">
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 300px;
+            "
+          >
+            <img
+              src="h3.jpg"
+              alt="Vision"
+              style="
+                max-width: 100%;
+                max-height: 100%;
+                width: auto;
+                height: auto;
+                object-fit: contain;
+              "
+            />
+          </div>
+          <h3>Our Service</h3>
+          <p>
+            To build safer communities and industries by continuously improving
+            our expertise, expanding our services, and becoming the most
+            reliable name in LPG system safety.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners section -->
+    <section class="partners" aria-labelledby="partners-heading">
+      <h3 id="partners-heading">Our Partner</h3>
+
+      <div class="logo-slider">
+        <div class="logo-slide-track">
+          <img src="sharyj.png" alt="Partner 1" />
+          <img src="ramada1.jpeg" alt="Partner 2" />
+          <img src="rotana1.png" alt="Partner 3" />
+          <img src="faruk1.jpg" alt="Partner 4" />
+          <img src="british.png" alt="Partner 5" />
+          <!-- repeat logos so the loop looks smooth -->
+          <img src="sharyj.png" alt="Partner 1" />
+          <img src="ramada1.jpeg" alt="Partner 2" />
+          <img src="rotana1.png" alt="Partner 3" />
+          <img src="faruk1.jpg" alt="Partner 4" />
+          <img src="british.png" alt="Partner 5" />
+
+          <img src="sharyj.png" alt="Partner 1" />
+          <img src="ramada1.jpeg" alt="Partner 2" />
+          <img src="rotana1.png" alt="Partner 3" />
+          <img src="faruk1.jpg" alt="Partner 4" />
+          <img src="british.png" alt="Partner 5" />
+
+          <img src="sharyj.png" alt="Partner 1" />
+          <img src="ramada1.jpeg" alt="Partner 2" />
+          <img src="rotana1.png" alt="Partner 3" />
+          <img src="faruk1.jpg" alt="Partner 4" />
+          <img src="british.png" alt="Partner 5" />
+
+          <img src="sharyj.png" alt="Partner 1" />
+          <img src="ramada1.jpeg" alt="Partner 2" />
+          <img src="rotana1.png" alt="Partner 3" />
+          <img src="faruk1.jpg" alt="Partner 4" />
+          <img src="british.png" alt="Partner 5" />
+
+          <img src="sharyj.png" alt="Partner 1" />
+          <img src="ramada1.jpeg" alt="Partner 2" />
+          <img src="rotana1.png" alt="Partner 3" />
+          <img src="faruk1.jpg" alt="Partner 4" />
+          <img src="british.png" alt="Partner 5" />
+
+          <img src="sharyj.png" alt="Partner 1" />
+          <img src="ramada1.jpeg" alt="Partner 2" />
+          <img src="rotana1.png" alt="Partner 3" />
+          <img src="faruk1.jpg" alt="Partner 4" />
+          <img src="british.png" alt="Partner 5" />
+
+          <img src="sharyj.png" alt="Partner 1" />
+          <img src="ramada1.jpeg" alt="Partner 2" />
+          <img src="rotana1.png" alt="Partner 3" />
+          <img src="faruk1.jpg" alt="Partner 4" />
+          <img src="british.png" alt="Partner 5" />
+
+          <img src="sharyj.png" alt="Partner 1" />
+          <img src="ramada1.jpeg" alt="Partner 2" />
+          <img src="rotana1.png" alt="Partner 3" />
+          <img src="faruk1.jpg" alt="Partner 4" />
+          <img src="british.png" alt="Partner 5" />
+
+          <img src="sharyj.png" alt="Partner 1" />
+          <img src="ramada1.jpeg" alt="Partner 2" />
+          <img src="rotana1.png" alt="Partner 3" />
+          <img src="faruk1.jpg" alt="Partner 4" />
+          <img src="british.png" alt="Partner 5" />
+        </div>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer>
+      <div class="footer-inner">
+        © <span id="y"></span> Final Check Lab • All rights reserved
+      </div>
+    </footer>
+
+    <!-- scripts -->
+    <script src="assets/main.js"></script>
+    <script src="assets/home.js"></script>
+    <script>
+      // Fallback: set current year if your main.js doesn't
+      (function () {
+        var y = document.getElementById("y");
+        if (y) y.textContent = new Date().getFullYear();
+      })();
+
+      // Page search functionality for navbar
+      function searchPageFromNav() {
+        const input = document.getElementById("nav-page-search");
+        const searchTerm = input.value.trim().toLowerCase();
+
+        const pages = {
+          home: "index.html",
+          index: "index.html",
+          about: "about.html",
+          "about us": "about.html",
+          services: "services.html",
+          "our service": "services.html",
+          "our services": "services.html",
+          certification: "certifications.html",
+          certifications: "certifications.html",
+          contact: "contact.html",
+          "contact us": "contact.html",
+        };
+
+        if (pages[searchTerm]) {
+          window.location.href = pages[searchTerm];
+        } else {
+          // Optional: Show a message if page not found
+          input.style.border = "1px solid red";
+          setTimeout(() => {
+            input.style.border = "1px solid rgba(255, 255, 255, 0.3)";
+          }, 1000);
+        }
+      }
+
+      // Search toggle functionality
+      document
+        .getElementById("searchToggle")
+        .addEventListener("click", function () {
+          const container = document.getElementById("searchContainer");
+          container.classList.toggle("active");
+
+          if (container.classList.contains("active")) {
+            document.getElementById("nav-page-search").focus();
+          }
+        });
+
+      // Close search when clicking outside
+      document.addEventListener("click", function (e) {
+        const container = document.getElementById("searchContainer");
+        const toggle = document.getElementById("searchToggle");
+
+        if (!container.contains(e.target) && !toggle.contains(e.target)) {
+          container.classList.remove("active");
+        }
+      });
+
+      // Add enter key support for navbar search
+      document
+        .getElementById("nav-page-search")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            searchPageFromNav();
+          }
+        });
+
+      // Read More functionality
+      function toggleReadMore() {
+        const preview = document.querySelector(".hero-preview");
+        const full = document.querySelector(".hero-full");
+        const button = document.querySelector(".read-more-btn");
+
+        if (full.style.display === "none") {
+          preview.style.display = "none";
+          full.style.display = "block";
+          button.textContent = "Read Less";
+        } else {
+          preview.style.display = "block";
+          full.style.display = "none";
+          button.textContent = "Read More";
+        }
+      }
+    </script>
+  </body>
+</html>
+
+<!--  -->

@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Final Check Lab — Services</title>
+    <!-- shared head -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <style>
+      :root {
+        --bg: #061a33;
+        --bg-2: #061a33;
+        --text: #ffffff;
+        --muted: #c7d2e4;
+        --accent: #c7d2e4;
+        --card: #061a33;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        --radius: 18px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        scroll-behavior: smooth;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* NAVBAR */
+      .nav {
+        position: fixed;
+        inset: 0 0 auto 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 22px;
+        background: linear-gradient(
+          to bottom,
+          rgba(6, 26, 51, 0.85),
+          rgba(6, 26, 51, 0.35),
+          rgba(6, 26, 51, 0)
+        );
+        backdrop-filter: saturate(140%) blur(5px);
+        z-index: 50;
+      }
+      .brand {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+      }
+      .navlinks {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+      }
+      .navlinks a {
+        opacity: 0.5s;
+        font-weight: 600;
+      }
+
+      .navlinks a:hover,
+      .navlinks a:focus {
+        opacity: 1;
+        color: var(--accent);
+      }
+      .navlinks a.active {
+        opacity: 1;
+        text-decoration: underline;
+      }
+
+      .burger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+      }
+      .burger span {
+        display: block;
+        width: 26px;
+        height: 2px;
+        background: #fff;
+      }
+      @media (max-width: 900px) {
+        .navlinks {
+          position: fixed;
+          top: 64px;
+          right: 16px;
+          left: 16px;
+          flex-direction: column;
+          gap: 12px;
+          background: var(--card);
+          padding: 16px;
+          border-radius: var(--radius);
+          transform: translateY(-20px);
+          opacity: 0;
+          pointer-events: none;
+          transition: 0.2s;
+        }
+        .navlinks.open {
+          transform: translateY(0);
+          opacity: 1;
+          pointer-events: auto;
+        }
+        .burger {
+          display: flex;
+        }
+      }
+
+      /* PAGE */
+      .page {
+        padding: 110px 22px 84px;
+        background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .eyebrow {
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 800;
+        font-size: 12px;
+      }
+      h2 {
+        font-size: clamp(28px, 4.2vw, 42px);
+        margin: 10px 0 12px;
+      }
+      .lead {
+        color: var(--muted);
+        max-width: 820px;
+      }
+
+      /* GRID + CARD */
+      .grid {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(12, 1fr);
+      }
+      .card {
+        position: relative;
+        grid-column: span 4;
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        padding: 0;
+      }
+      .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+      .card:hover img {
+        transform: scale(1.08);
+      }
+      .card-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        color: #fff;
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 25px;
+
+        /* animation settings */
+        transform: translateY(-100%);
+        transition: transform 2s ease, opacity 2s ease;
+      }
+
+      .card:hover .card-overlay {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .card-overlay h3 {
+        margin-bottom: 8px;
+        font-size: 1.4rem;
+      }
+      .card-overlay p {
+        font-size: 0.95rem;
+        color: #ddd;
+      }
+
+      /* Service Item Styles */
+      .service-item {
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 8px;
+        margin: 6px 0;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+        position: relative;
+      }
+
+      .service-item:hover {
+        background: rgba(199, 210, 228, 0.1);
+        border-color: rgba(199, 210, 228, 0.3);
+        color: #c7d2e4;
+        text-decoration: underline;
+        transform: translateY(-2px);
+      }
+
+      .service-item[data-action="video"]::after {
+        content: " 🎥";
+        opacity: 0.7;
+        font-size: 0.8em;
+      }
+
+      .service-item[data-action="info"]::after {
+        content: " ℹ️";
+        opacity: 0.7;
+        font-size: 0.8em;
+      }
+
+      .service-item.no-icon::after {
+        content: "";
+      }
+
+      /* Modal Styles */
+      .info-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .info-modal.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal-content {
+        background: var(--card);
+        padding: 30px;
+        border-radius: var(--radius);
+        max-width: 500px;
+        margin: 20px;
+        box-shadow: var(--shadow);
+        transform: translateY(-20px);
+        transition: transform 0.3s ease;
+      }
+
+      .info-modal.active .modal-content {
+        transform: translateY(0);
+      }
+
+      .modal-content h3 {
+        color: var(--accent);
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+      }
+
+      .modal-content p {
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+
+      .modal-close {
+        background: var(--accent);
+        color: var(--bg);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.3s ease;
+      }
+
+      .modal-close:hover {
+        background: #a0c4e4;
+      }
+      @media (max-width: 900px) {
+        .card {
+          grid-column: span 12;
+        }
+      }
+
+      /* Additional responsive styles for services page */
+      @media (max-width: 768px) {
+        .page {
+          padding: 90px 16px 60px;
+        }
+
+        .container {
+          padding: 0 16px;
+        }
+
+        .nav {
+          padding: 12px 16px;
+        }
+
+        .grid {
+          gap: 16px;
+          grid-template-columns: 1fr;
+        }
+
+        .card {
+          grid-column: span 1;
+          min-height: 200px;
+        }
+
+        .card-overlay {
+          padding: 20px;
+        }
+
+        .card-overlay h3 {
+          font-size: 1.2rem;
+          margin-bottom: 6px;
+        }
+
+        .card-overlay p {
+          font-size: 0.85rem;
+        }
+
+        h2 {
+          font-size: clamp(24px, 5vw, 32px);
+        }
+
+        .eyebrow {
+          font-size: 11px;
+        }
+
+        footer {
+          padding: 30px 16px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .page {
+          padding: 80px 12px 40px;
+        }
+
+        .nav {
+          padding: 10px 12px;
+        }
+
+        .card {
+          min-height: 180px;
+        }
+
+        .card-overlay {
+          padding: 15px;
+        }
+
+        .card-overlay h3 {
+          font-size: 1.1rem;
+        }
+
+        .card-overlay p {
+          font-size: 0.8rem;
+        }
+
+        h2 {
+          font-size: clamp(20px, 6vw, 28px);
+        }
+
+        .lead {
+          font-size: 14px;
+        }
+
+        footer {
+          padding: 20px 12px;
+        }
+      }
+
+      /* Tablet landscape adjustments */
+      @media (max-width: 1024px) and (min-width: 769px) {
+        .card {
+          grid-column: span 6;
+        }
+      }
+
+      /* footer */
+      footer {
+        padding: 40px 22px;
+        background: #05142a;
+        border-top: 1px solid #ffffff14;
+        color: #9fb5d4;
+      }
+      .footer-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      /* Search Icon in Navbar */
+      .nav-search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-icon {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: background 0.3s ease;
+      }
+
+      .search-icon:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .search-input-container {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        margin-top: 10px;
+        background: rgba(6, 26, 51, 0.95);
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        z-index: 100;
+        min-width: 280px;
+      }
+
+      .search-input-container.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .search-input-container input {
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .search-input-container input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .search-input-container button {
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        background: var(--accent);
+        color: #061a33;
+        margin-top: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+
+      .search-input-container button:hover {
+        background: #a0c4e4;
+      }
+
+      @media (max-width: 900px) {
+        .nav-search-container {
+          order: -1;
+          margin-right: auto;
+          margin-left: 10px;
+        }
+
+        .search-input-container {
+          right: auto;
+          left: 0;
+          min-width: 250px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- nav -->
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="index.html" aria-label="Final Check Lab home">
+        <div class="logo">
+          <img src="mylog.png" alt="Final Check Lab logo" />
+        </div>
+        <span>Final Check Lab</span>
+      </a>
+
+      <div class="navlinks" id="navlinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html" class="active">Our Service</a>
+        <a href="certifications.html">Certification</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div class="nav-search-container">
+        <button class="search-icon" id="searchToggle" aria-label="Search">
+          🔍
+        </button>
+        <div class="search-input-container" id="searchContainer">
+          <input
+            type="text"
+            id="nav-page-search"
+            placeholder="Search pages..."
+            aria-label="Search pages"
+          />
+          <button onclick="searchPageFromNav()">Search</button>
+        </div>
+      </div>
+
+      <button
+        class="burger"
+        id="burger"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <main class="page">
+      <div class="container">
+        <div class="eyebrow">Our service</div>
+        <h2>What are our services</h2>
+
+        <div class="grid" style="margin-top: 18px">
+          <article class="card" id="testing-validation-card">
+            <img src="rt1.jpg" alt="Testing & Validation" />
+            <div class="card-overlay">
+              <h3>Testing & Validation</h3>
+              <p
+                id="rt-test"
+                class="service-item no-icon"
+                data-action="video"
+                data-video-section="video-section-rt"
+              >
+                RT (Radiographic Test)
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="video"
+                data-video-section="video-section-ut"
+              >
+                UT (Ultrasonic Test)
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="info"
+                data-content="Magnetic particle testing is a non-destructive testing method used to detect surface and slightly subsurface discontinuities in ferromagnetic materials."
+              >
+                MT (Magnetic Test)
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="video"
+                data-video-section="video-section-pt"
+              >
+                PT (Penetrant Test)
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="info"
+                data-content="Visual inspection is the most basic method of non-destructive testing. It involves examining components with the naked eye or with the aid of magnifying devices."
+              >
+                VT (Visual Inspection)
+              </p>
+            </div>
+          </article>
+
+          <article class="card">
+            <img src="fc2.JPG" alt="Calibration" />
+            <div class="card-overlay">
+              <h3>Inspection</h3>
+              <p
+                class="service-item no-icon"
+                data-action="video"
+                data-video-section="video-section-road-tanker"
+              >
+                LPG Road Tanker
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="info"
+                data-content="Comprehensive inspection of LPG system components including piping, valves, regulators, and safety devices to ensure proper operation and compliance with safety standards."
+              >
+                LPG System Inspection
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="video"
+                data-video-section="video-section-pressure-vessel"
+              >
+                LPG Pressure Vessel Inspection
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="info"
+                data-content="Hydrostatic testing involves filling the storage tank with water and pressurizing it to test for leaks and structural integrity at pressures above normal operating levels."
+              >
+                LPG Storage Hydrostatic Test
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="video"
+                data-video-section="video-section-storage-tanks"
+              >
+                LPG Storage Tanks Tests
+              </p>
+            </div>
+          </article>
+
+          <article class="card">
+            <img src="rr.jpg" alt="Consulting" />
+            <div class="card-overlay">
+              <h3>Approval Tests</h3>
+              <p
+                class="service-item no-icon"
+                data-action="info"
+                data-content="Laboratory testing of LPG steel pipes to ensure material quality, pressure ratings, and compliance with industry standards for safe gas transportation."
+              >
+                LPG Carbon steel pipe
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="video"
+                data-video-section="video-section-polyethylene"
+              >
+                LPG Polyethylene Pipe
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="info"
+                data-content="Design approval services for LPG systems, ensuring all components meet regulatory requirements and safety standards before installation."
+              >
+                LPG Regulator
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="video"
+                data-video-section="video-section-lpg-meter"
+              >
+                LPG Meter
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="video"
+                data-video-section="video-section-polyethylene"
+              >
+                LPG pressure Gauge
+              </p>
+              <p
+                class="service-item no-icon"
+                data-action="video"
+                data-video-section="video-section-polyethylene"
+              >
+                LPG Valves
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </main>
+
+    <!-- Info Modal -->
+    <div class="info-modal" id="infoModal">
+      <div class="modal-content">
+        <h3 id="modalTitle"></h3>
+        <p id="modalText"></p>
+        <button class="modal-close" onclick="closeInfoModal()">Close</button>
+      </div>
+    </div>
+
+    <footer>
+      <div
+        class="container"
+        style="max-width: 95%; margin: 0 auto; padding: 40px 20px"
+      >
+        <!-- RT Video Section -->
+        <div
+          class="work-example-section video-section"
+          id="video-section-rt"
+          style="display: none"
+        >
+          <h2
+            style="
+              text-align: center;
+              color: #ffffff;
+              font-size: 2.5rem;
+              margin-bottom: 30px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            RT (Radiographic Test) - Work Example
+          </h2>
+          <div
+            class="video-container"
+            style="width: 100%; max-width: 1200px; margin: 0 auto"
+          >
+            <div
+              class="embed-responsive embed-responsive-16by9"
+              style="
+                position: relative;
+                width: 100%;
+                height: 0;
+                padding-bottom: 56.25%;
+                overflow: hidden;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+              "
+            >
+              <iframe
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                  border-radius: 12px;
+                "
+                src="https://www.youtube.com/embed/M-SIXFHLgD0?si=QlLknHrZiFD1FHGd"
+                title="RT (Radiographic Test) video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- UT Video Section -->
+        <div
+          class="work-example-section video-section"
+          id="video-section-ut"
+          style="display: none"
+        >
+          <h2
+            style="
+              text-align: center;
+              color: #ffffff;
+              font-size: 2.5rem;
+              margin-bottom: 30px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            UT (Ultrasonic Test) - Work Example
+          </h2>
+          <div
+            class="video-container"
+            style="width: 100%; max-width: 1200px; margin: 0 auto"
+          >
+            <div
+              class="embed-responsive embed-responsive-16by9"
+              style="
+                position: relative;
+                width: 100%;
+                height: 0;
+                padding-bottom: 56.25%;
+                overflow: hidden;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+              "
+            >
+              <iframe
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                  border-radius: 12px;
+                "
+                src="https://www.youtube.com/embed/PLACEHOLDER_UT_VIDEO_ID"
+                title="UT (Ultrasonic Test) video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- PT Video Section -->
+        <div
+          class="work-example-section video-section"
+          id="video-section-pt"
+          style="display: none"
+        >
+          <h2
+            style="
+              text-align: center;
+              color: #ffffff;
+              font-size: 2.5rem;
+              margin-bottom: 30px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            PT (Penetrant Test) - Work Example
+          </h2>
+          <div
+            class="video-container"
+            style="width: 100%; max-width: 1200px; margin: 0 auto"
+          >
+            <div
+              class="embed-responsive embed-responsive-16by9"
+              style="
+                position: relative;
+                width: 100%;
+                height: 0;
+                padding-bottom: 56.25%;
+                overflow: hidden;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+              "
+            >
+              <iframe
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                  border-radius: 12px;
+                "
+                src="https://www.youtube.com/embed/PLACEHOLDER_PT_VIDEO_ID"
+                title="PT (Penetrant Test) video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- LPG Road Tanker Video Section -->
+        <div
+          class="work-example-section video-section"
+          id="video-section-road-tanker"
+          style="display: none"
+        >
+          <h2
+            style="
+              text-align: center;
+              color: #ffffff;
+              font-size: 2.5rem;
+              margin-bottom: 30px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            LPG Road Tanker - Work Example
+          </h2>
+          <div
+            class="video-container"
+            style="width: 100%; max-width: 1200px; margin: 0 auto"
+          >
+            <div
+              class="embed-responsive embed-responsive-16by9"
+              style="
+                position: relative;
+                width: 100%;
+                height: 0;
+                padding-bottom: 56.25%;
+                overflow: hidden;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+              "
+            >
+              <iframe
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                  border-radius: 12px;
+                "
+                src="https://www.youtube.com/embed/PLACEHOLDER_ROAD_TANKER_VIDEO_ID"
+                title="LPG Road Tanker video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- LPG Pressure Vessel Video Section -->
+        <div
+          class="work-example-section video-section"
+          id="video-section-pressure-vessel"
+          style="display: none"
+        >
+          <h2
+            style="
+              text-align: center;
+              color: #ffffff;
+              font-size: 2.5rem;
+              margin-bottom: 30px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            LPG Pressure Vessel - Work Example
+          </h2>
+          <div
+            class="video-container"
+            style="width: 100%; max-width: 1200px; margin: 0 auto"
+          >
+            <div
+              class="embed-responsive embed-responsive-16by9"
+              style="
+                position: relative;
+                width: 100%;
+                height: 0;
+                padding-bottom: 56.25%;
+                overflow: hidden;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+              "
+            >
+              <iframe
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                  border-radius: 12px;
+                "
+                src="https://www.youtube.com/embed/PLACEHOLDER_PRESSURE_VESSEL_VIDEO_ID"
+                title="LPG Pressure Vessel video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- LPG Storage Tanks Video Section -->
+        <div
+          class="work-example-section video-section"
+          id="video-section-storage-tanks"
+          style="display: none"
+        >
+          <h2
+            style="
+              text-align: center;
+              color: #ffffff;
+              font-size: 2.5rem;
+              margin-bottom: 30px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            LPG Storage Tanks - Work Example
+          </h2>
+          <div
+            class="video-container"
+            style="width: 100%; max-width: 1200px; margin: 0 auto"
+          >
+            <div
+              class="embed-responsive embed-responsive-16by9"
+              style="
+                position: relative;
+                width: 100%;
+                height: 0;
+                padding-bottom: 56.25%;
+                overflow: hidden;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+              "
+            >
+              <iframe
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                  border-radius: 12px;
+                "
+                src="https://www.youtube.com/embed/PLACEHOLDER_STORAGE_TANKS_VIDEO_ID"
+                title="LPG Storage Tanks video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- LPG Polyethylene Pipe Video Section -->
+        <div
+          class="work-example-section video-section"
+          id="video-section-polyethylene"
+          style="display: none"
+        >
+          <h2
+            style="
+              text-align: center;
+              color: #ffffff;
+              font-size: 2.5rem;
+              margin-bottom: 30px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            LPG Polyethylene Pipe - Work Example
+          </h2>
+          <div
+            class="video-container"
+            style="width: 100%; max-width: 1200px; margin: 0 auto"
+          >
+            <div
+              class="embed-responsive embed-responsive-16by9"
+              style="
+                position: relative;
+                width: 100%;
+                height: 0;
+                padding-bottom: 56.25%;
+                overflow: hidden;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+              "
+            >
+              <iframe
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                  border-radius: 12px;
+                "
+                src="https://www.youtube.com/embed/PLACEHOLDER_POLYETHYLENE_VIDEO_ID"
+                title="LPG Polyethylene Pipe video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- LPG Meter Video Section -->
+        <div
+          class="work-example-section video-section"
+          id="video-section-lpg-meter"
+          style="display: none"
+        >
+          <h2
+            style="
+              text-align: center;
+              color: #ffffff;
+              font-size: 2.5rem;
+              margin-bottom: 30px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            LPG Meter - Work Example
+          </h2>
+          <div
+            class="video-container"
+            style="width: 100%; max-width: 1200px; margin: 0 auto"
+          >
+            <div
+              class="embed-responsive embed-responsive-16by9"
+              style="
+                position: relative;
+                width: 100%;
+                height: 0;
+                padding-bottom: 56.25%;
+                overflow: hidden;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+              "
+            >
+              <iframe
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                  border-radius: 12px;
+                "
+                src="https://www.youtube.com/embed/PLACEHOLDER_LPG_METER_VIDEO_ID"
+                title="LPG Meter video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-inner">
+        © <span id="y"></span> Final Check Lab • All rights reserved
+      </div>
+    </footer>
+    <script src="assets/main.js"></script>
+    <script>
+      // Modal functions for services page
+      function showInfoModal(title, content) {
+        const modal = document.getElementById("infoModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalText = document.getElementById("modalText");
+
+        modalTitle.textContent = title;
+        modalText.textContent = content;
+        modal.classList.add("active");
+
+        // Close modal when clicking outside
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            closeInfoModal();
+          }
+        });
+      }
+
+      function closeInfoModal() {
+        const modal = document.getElementById("infoModal");
+        modal.classList.remove("active");
+      }
+    </script>
+    <script>
+      // Page search functionality for navbar
+      function searchPageFromNav() {
+        const input = document.getElementById("nav-page-search");
+        const searchTerm = input.value.trim().toLowerCase();
+
+        const pages = {
+          home: "index.html",
+          index: "index.html",
+          about: "about.html",
+          "about us": "about.html",
+          services: "services.html",
+          "our service": "services.html",
+          "our services": "services.html",
+          certification: "certifications.html",
+          certifications: "certifications.html",
+          contact: "contact.html",
+          "contact us": "contact.html",
+        };
+
+        if (pages[searchTerm]) {
+          window.location.href = pages[searchTerm];
+        } else {
+          // Optional: Show a message if page not found
+          input.style.border = "1px solid red";
+          setTimeout(() => {
+            input.style.border = "1px solid rgba(255, 255, 255, 0.3)";
+          }, 1000);
+        }
+      }
+
+      // Search toggle functionality
+      document
+        .getElementById("searchToggle")
+        .addEventListener("click", function () {
+          const container = document.getElementById("searchContainer");
+          container.classList.toggle("active");
+
+          if (container.classList.contains("active")) {
+            document.getElementById("nav-page-search").focus();
+          }
+        });
+
+      // Close search when clicking outside
+      document.addEventListener("click", function (e) {
+        const container = document.getElementById("searchContainer");
+        const toggle = document.getElementById("searchToggle");
+
+        if (!container.contains(e.target) && !toggle.contains(e.target)) {
+          container.classList.remove("active");
+        }
+      });
+
+      // Add enter key support for navbar search
+      document
+        .getElementById("nav-page-search")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            searchPageFromNav();
+          }
+        });
+    </script>
+  </body>
+</html>

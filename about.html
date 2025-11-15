@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Final Check Lab — About</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background-color: #061a33;
+        color: white;
+      }
+
+      /* Modern split screen layout */
+      .split-container {
+        display: flex;
+        min-height: 100vh;
+        margin-top: 70px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .left-side {
+        flex: 1.2;
+        position: relative;
+        overflow: hidden;
+        border-radius: 0 30px 30px 0;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        z-index: 1;
+      }
+
+      .left-side img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        filter: contrast(1.05) saturate(1.05);
+      }
+
+      .left-side:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Subtle overlay */
+      .left-side::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 0, 0, 0.2) 0%,
+          rgba(0, 0, 0, 0.5) 100%
+        );
+        z-index: 2;
+      }
+
+      /* Remove the second blue overlay completely */
+
+      /* Accent lines with more subtle color */
+      .accent-line {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.3);
+        z-index: 4;
+      }
+
+      .accent-line.top {
+        top: 30px;
+        left: 30px;
+        width: 70px;
+        height: 3px;
+      }
+
+      .accent-line.bottom {
+        bottom: 30px;
+        right: 30px;
+        width: 70px;
+        height: 3px;
+      }
+
+      .right-side {
+        flex: 0.8;
+        padding: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: linear-gradient(
+          170deg,
+          rgba(6, 26, 51, 0.9) 0%,
+          rgba(10, 40, 80, 0.9) 100%
+        );
+        position: relative;
+        z-index: 0;
+      }
+
+      .right-side::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="0" y="0" width="100" height="100" fill="none" stroke="%23ffffff10" stroke-width="1" /></svg>');
+        opacity: 0.3;
+        z-index: -1;
+      }
+
+      .content-card {
+        padding: 30px;
+        border-radius: 20px;
+        background: rgba(0, 40, 80, 0.4);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        animation: slideIn 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+
+      .right-side h1 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        color: #00aaff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .right-side h1::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(to right, #00aaff, transparent);
+      }
+
+      .right-side p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 20px;
+        color: #e6e6e6;
+      }
+
+      .right-side p:last-child {
+        font-style: italic;
+        color: #00aaff;
+        border-left: 3px solid #00aaff;
+        padding-left: 15px;
+        margin-top: 30px;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .split-container {
+          flex-direction: column;
+          margin-top: 60px;
+        }
+
+        .left-side,
+        .right-side {
+          flex: unset;
+          height: 50vh;
+          min-height: 300px;
+        }
+
+        .left-side {
+          border-radius: 0 0 30px 30px;
+        }
+
+        .right-side {
+          padding: 30px 20px;
+          justify-content: flex-start;
+        }
+
+        .content-card {
+          padding: 20px;
+          margin-top: 20px;
+        }
+
+        .right-side h1 {
+          font-size: 1.8rem;
+          margin-bottom: 20px;
+          letter-spacing: 1px;
+        }
+
+        .right-side p {
+          font-size: 1rem;
+          line-height: 1.6;
+          margin-bottom: 15px;
+        }
+
+        .accent-line.top {
+          top: 15px;
+          left: 15px;
+          width: 50px;
+        }
+
+        .accent-line.bottom {
+          bottom: 15px;
+          right: 15px;
+          width: 50px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .split-container {
+          margin-top: 50px;
+        }
+
+        .left-side,
+        .right-side {
+          height: 40vh;
+          min-height: 250px;
+        }
+
+        .right-side {
+          padding: 20px 15px;
+        }
+
+        .content-card {
+          padding: 15px;
+        }
+
+        .right-side h1 {
+          font-size: 1.5rem;
+          margin-bottom: 15px;
+          letter-spacing: 1px;
+        }
+
+        .right-side p {
+          font-size: 0.9rem;
+          line-height: 1.5;
+          margin-bottom: 12px;
+        }
+
+        .right-side p:last-child {
+          margin-top: 20px;
+          padding-left: 10px;
+        }
+
+        .accent-line.top,
+        .accent-line.bottom {
+          width: 40px;
+          height: 2px;
+        }
+
+        .accent-line.top {
+          top: 10px;
+          left: 10px;
+        }
+
+        .accent-line.bottom {
+          bottom: 10px;
+          right: 10px;
+        }
+      }
+
+      /* Search Icon in Navbar */
+      .nav-search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      /* Fix for the About Us link not being underlined */
+      .navlinks a[aria-current="page"] {
+        opacity: 1;
+        text-decoration: underline;
+      }
+
+      .search-icon {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: background 0.3s ease;
+      }
+
+      .search-icon:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .search-input-container {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        margin-top: 10px;
+        background: rgba(6, 26, 51, 0.95);
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        z-index: 100;
+        min-width: 280px;
+      }
+
+      .search-input-container.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .search-input-container input {
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .search-input-container input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .search-input-container button {
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        background: var(--accent);
+        color: #061a33;
+        margin-top: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+
+      .search-input-container button:hover {
+        background: #a0c4e4;
+      }
+
+      @media (max-width: 900px) {
+        .nav-search-container {
+          order: -1;
+          margin-right: auto;
+          margin-left: 10px;
+        }
+
+        .search-input-container {
+          right: auto;
+          left: 0;
+          min-width: 250px;
+        }
+      }
+
+      /* Publications Section */
+      .publications-section {
+        padding: 80px 5%;
+        background: linear-gradient(
+          0deg,
+          rgba(6, 26, 51, 1) 0%,
+          rgba(10, 40, 80, 0.9) 100%
+        );
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .section-header h2 {
+        font-size: 2.5rem;
+        color: #00aaff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+      }
+
+      .section-header h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          #00aaff,
+          transparent
+        );
+      }
+
+      .section-header p {
+        color: #e6e6e6;
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .publications-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+      }
+
+      .publication-card {
+        background: rgba(0, 40, 80, 0.4);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .publication-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .publication-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 170, 255, 0.2) 0%,
+          transparent 100%
+        );
+        z-index: 1;
+      }
+
+      .publication-image {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .publication-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .publication-card:hover .publication-image img {
+        transform: scale(1.1);
+      }
+
+      .publication-content {
+        padding: 25px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .publication-content h3 {
+        color: #00aaff;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.4rem;
+      }
+
+      .publication-content p {
+        color: #e6e6e6;
+        margin-bottom: 15px;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .publication-date {
+        display: inline-block;
+        background: rgba(0, 170, 255, 0.2);
+        color: #00aaff;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      /* Modal Dialog Styles */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-dialog {
+        background: rgba(10, 30, 60, 0.95);
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 20px;
+        padding: 0;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        transform: scale(0.95);
+        opacity: 0;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+      }
+
+      .modal-overlay.active .modal-dialog {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      .modal-header {
+        padding: 25px 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 40, 80, 1) 0%,
+          rgba(0, 20, 40, 1) 100%
+        );
+        border-radius: 20px 20px 0 0;
+      }
+
+      .modal-header h3 {
+        color: #00aaff;
+        margin: 0;
+        font-size: 1.8rem;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .modal-image {
+        width: 100%;
+        height: 300px;
+      }
+
+      .modal-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .modal-content {
+        padding: 30px;
+      }
+
+      .modal-content p {
+        color: #e6e6e6;
+        line-height: 1.8;
+        margin-bottom: 20px;
+        font-size: 1.05rem;
+      }
+
+      .modal-content .publication-date {
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+
+      .modal-footer {
+        padding: 20px 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: right;
+      }
+
+      .modal-footer button {
+        background: #00aaff;
+        color: #061a33;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .modal-footer button:hover {
+        background: #0088cc;
+      }
+
+      @media (max-width: 768px) {
+        .publications-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .modal-dialog {
+          width: 95%;
+        }
+
+        .modal-header {
+          padding: 20px;
+        }
+
+        .modal-content {
+          padding: 20px;
+        }
+
+        .modal-image {
+          height: 200px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR FROM HOME PAGE -->
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="index.html" aria-label="Final Check Lab home">
+        <div class="logo">
+          <img src="mylog.png" alt="Final Check Lab logo" />
+        </div>
+        <span>Final Check Lab</span>
+      </a>
+
+      <div class="navlinks" id="navlinks">
+        <a href="index.html">Home</a>
+        <a href="about.html" aria-current="page">About Us</a>
+        <a href="services.html">Our Service</a>
+        <a href="certifications.html">Certification</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div class="nav-search-container">
+        <button class="search-icon" id="searchToggle" aria-label="Search">
+          🔍
+        </button>
+        <div class="search-input-container" id="searchContainer">
+          <input
+            type="text"
+            id="nav-page-search"
+            placeholder="Search pages..."
+            aria-label="Search pages"
+          />
+          <button onclick="searchPageFromNav()">Search</button>
+        </div>
+      </div>
+
+      <button
+        class="burger"
+        id="burger"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="navlinks"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- ABOUT CONTENT -->
+    <main>
+      <div class="split-container">
+        <!-- Left (Image) with modern layered effect -->
+        <div class="left-side">
+          <img src="fc1.jpg" alt="Experienced Team" />
+          <div class="accent-line top"></div>
+          <div class="accent-line bottom"></div>
+        </div>
+
+        <!-- Right (Text) with modern card design -->
+        <div class="right-side">
+          <div class="content-card">
+            <h1>About Final Check Lab</h1>
+            <p>
+              Final Check Lab is a professional LPG testing and inspection
+              laboratory dedicated to ensuring safety, compliance, and
+              reliability. We specialize in LPG storage tank testing, system
+              inspections, hydrostatic tests, and accessories evaluation,
+              helping industries and communities operate with confidence.
+            </p>
+            <p>
+              With a commitment to international safety standards, modern
+              testing methods, and certified expertise, we provide accurate
+              results and trusted services that protect lives, property, and the
+              environment.
+            </p>
+            <p>
+              At Final Check Lab, we believe in precision, professionalism, and
+              integrity. Whether it’s routine inspections or advanced
+              certification, our goal is to deliver dependable solutions that
+              meet the highest levels of safety and quality.
+            </p>
+            <p>Final Check Lab</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- PUBLICATIONS SECTION -->
+    <section class="publications-section">
+      <div class="section-header">
+        <h2>Our Publications</h2>
+        <p>
+          Discover our latest research papers, technical reports, and industry
+          analyses in the field of LPG safety and certification.
+        </p>
+      </div>
+
+      <div class="publications-grid">
+        <!-- Publication Card 1 -->
+        <div class="publication-card" data-publication="1">
+          <div class="publication-image">
+            <img src="cert1.jpg" alt="Safety Standards Publication" />
+          </div>
+          <div class="publication-content">
+            <span class="publication-date">March 15, 2025</span>
+            <h3>Modern LPG Safety Standards</h3>
+            <p>
+              An analysis of current safety standards and future improvements in
+              the LPG industry.
+            </p>
+          </div>
+        </div>
+
+        <!-- Publication Card 2 -->
+        <div class="publication-card" data-publication="2">
+          <div class="publication-image">
+            <img src="british.png" alt="Technical Assessment Publication" />
+          </div>
+          <div class="publication-content">
+            <span class="publication-date">January 22, 2025</span>
+            <h3>Hury Hury</h3>
+            <p>we have the smartest Accountant in the world</p>
+          </div>
+        </div>
+
+        <!-- Publication Card 3 -->
+        <div class="publication-card" data-publication="3">
+          <div class="publication-image">
+            <img src="cert3.jpg" alt="Certification Process Publication" />
+          </div>
+          <div class="publication-content">
+            <span class="publication-date">December 10, 2024</span>
+            <h3>Certification Process Explained</h3>
+            <p>
+              A detailed breakdown of our certification process and why it
+              ensures maximum safety.
+            </p>
+          </div>
+        </div>
+
+        <!-- Publication Card 4 -->
+        <div class="publication-card" data-publication="4">
+          <div class="publication-image">
+            <img src="testt.JPG" alt="Industry Trends Publication" />
+          </div>
+          <div class="publication-content">
+            <span class="publication-date">November 5, 2024</span>
+            <h3>Industry Trends Report</h3>
+            <p>
+              Analysis of upcoming trends and technologies in the LPG safety
+              certification industry.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal Dialogs for Publications -->
+    <!-- rasmi naw publicationakanishy tyaya -->
+    <div class="modal-overlay" id="modal-1">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h3>Modern LPG Safety Standards</h3>
+          <button class="modal-close" aria-label="Close dialog">&times;</button>
+        </div>
+        <div class="modal-image">
+          <img src="cert1.jpg" alt="Safety Standards Publication" />
+        </div>
+        <div class="modal-content">
+          <span class="publication-date">March 15, 2025</span>
+          <p>
+            In this comprehensive publication, we analyze the current state of
+            safety standards in the LPG industry and provide insights into
+            future improvements that will enhance safety across residential and
+            commercial applications.
+          </p>
+          <p>The research covers key aspects including:</p>
+          <p>
+            • Analysis of international safety standards and their
+            implementation
+          </p>
+          <p>• Comparison of regulatory frameworks across different regions</p>
+          <p>• Case studies of safety incidents and their prevention</p>
+          <p>• Technological advancements in LPG safety systems</p>
+          <p>• Recommendations for improved industry-wide standards</p>
+          <p>
+            This publication serves as an essential resource for safety
+            professionals, regulators, and LPG system installers looking to stay
+            current with best practices and emerging trends in the industry.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-close-btn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-2">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h3>Technical Assessment Guidelines</h3>
+          <button class="modal-close" aria-label="Close dialog">&times;</button>
+        </div>
+        <div class="modal-image">
+          <img src="cert2.jpg" alt="Technical Assessment Publication" />
+        </div>
+        <div class="modal-content">
+          <span class="publication-date">January 22, 2025</span>
+          <p>
+            Our technical assessment guidelines provide a systematic approach to
+            evaluating LPG systems in commercial buildings, ensuring
+            comprehensive safety checks and compliance with all relevant
+            regulations.
+          </p>
+          <p>The guidelines include detailed protocols for:</p>
+          <p>• Initial system assessment and documentation</p>
+          <p>• Pressure testing and leak detection methodologies</p>
+          <p>• Valve and regulator inspection procedures</p>
+          <p>• Ventilation and installation clearance requirements</p>
+          <p>• Emergency shutdown system verification</p>
+          <p>• Reporting and certification documentation</p>
+          <p>
+            These guidelines have been developed based on years of field
+            experience and collaboration with industry experts to ensure they
+            represent the most thorough and effective assessment practices
+            available.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-close-btn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-3">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h3>Certification Process Explained</h3>
+          <button class="modal-close" aria-label="Close dialog">&times;</button>
+        </div>
+        <div class="modal-image">
+          <img src="cert3.jpg" alt="Certification Process Publication" />
+        </div>
+        <div class="modal-content">
+          <span class="publication-date">December 10, 2024</span>
+          <p>
+            This publication provides a detailed breakdown of our certification
+            process, explaining each step from initial application to final
+            certification issuance. We highlight why our process ensures maximum
+            safety and compliance.
+          </p>
+          <p>Our certification process includes:</p>
+          <p>• Pre-assessment consultation and requirements review</p>
+          <p>• On-site inspection and testing procedures</p>
+          <p>• Documentation verification and compliance checking</p>
+          <p>• Quality assurance and peer review</p>
+          <p>• Certification issuance and validity periods</p>
+          <p>• Maintenance and renewal procedures</p>
+          <p>
+            Understanding this process helps clients prepare adequately for
+            certification and ensures they can maintain their certification
+            status through proper system maintenance and periodic reviews.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-close-btn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-4">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h3>Industry Trends Report</h3>
+          <button class="modal-close" aria-label="Close dialog">&times;</button>
+        </div>
+        <div class="modal-image">
+          <img src="testt.JPG" alt="Industry Trends Publication" />
+        </div>
+        <div class="modal-content">
+          <span class="publication-date">November 5, 2024</span>
+          <p>
+            Our industry trends report analyzes upcoming developments and
+            technologies in the LPG safety certification industry, providing
+            valuable insights for professionals seeking to stay ahead of
+            industry changes.
+          </p>
+          <p>Key trends covered in this report include:</p>
+          <p>• Digital transformation in certification processes</p>
+          <p>• IoT and remote monitoring technologies</p>
+          <p>• Sustainable practices in LPG system design</p>
+          <p>• Regulatory changes on the horizon</p>
+          <p>• Market growth projections and opportunities</p>
+          <p>• Training and skills development for the future workforce</p>
+          <p>
+            This forward-looking analysis helps stakeholders prepare for future
+            developments and invest strategically in technologies and practices
+            that will define the next generation of LPG safety standards.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-close-btn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner" style="text-align: center; padding: 20px">
+        © <span id="y"></span> Final Check Lab • All rights reserved
+      </div>
+    </footer>
+
+    <!-- SCRIPT -->
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+
+      // Burger button functionality is now handled by main.js
+
+      // Page search functionality for navbar
+      function searchPageFromNav() {
+        const input = document.getElementById("nav-page-search");
+        const searchTerm = input.value.trim().toLowerCase();
+
+        const pages = {
+          home: "index.html",
+          index: "index.html",
+          about: "about.html",
+          "about us": "about.html",
+          services: "services.html",
+          "our service": "services.html",
+          "our services": "services.html",
+          certification: "certifications.html",
+          certifications: "certifications.html",
+          contact: "contact.html",
+          "contact us": "contact.html",
+        };
+
+        if (pages[searchTerm]) {
+          window.location.href = pages[searchTerm];
+        } else {
+          // Optional: Show a message if page not found
+          input.style.border = "1px solid red";
+          setTimeout(() => {
+            input.style.border = "1px solid rgba(255, 255, 255, 0.3)";
+          }, 1000);
+        }
+      }
+
+      // Search toggle functionality
+      document
+        .getElementById("searchToggle")
+        .addEventListener("click", function () {
+          const container = document.getElementById("searchContainer");
+          container.classList.toggle("active");
+
+          if (container.classList.contains("active")) {
+            document.getElementById("nav-page-search").focus();
+          }
+        });
+
+      // Close search when clicking outside
+      document.addEventListener("click", function (e) {
+        const container = document.getElementById("searchContainer");
+        const toggle = document.getElementById("searchToggle");
+
+        if (!container.contains(e.target) && !toggle.contains(e.target)) {
+          container.classList.remove("active");
+        }
+      });
+
+      // Add enter key support for navbar search
+      document
+        .getElementById("nav-page-search")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            searchPageFromNav();
+          }
+        });
+
+      // Publication Card Modal Functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get all publication cards
+        const publicationCards = document.querySelectorAll(".publication-card");
+
+        // Get all modal overlays and close buttons
+        const modalOverlays = document.querySelectorAll(".modal-overlay");
+        const modalCloseButtons = document.querySelectorAll(
+          ".modal-close, .modal-close-btn"
+        );
+
+        // Add click event to each publication card
+        publicationCards.forEach((card) => {
+          card.addEventListener("click", function () {
+            const publicationId = this.getAttribute("data-publication");
+            const modal = document.getElementById(`modal-${publicationId}`);
+
+            // Open the modal
+            modal.classList.add("active");
+
+            // Prevent page scrolling when modal is open
+            document.body.style.overflow = "hidden";
+          });
+        });
+
+        // Add click event to all close buttons
+        modalCloseButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            // Find the parent modal overlay
+            const modal = this.closest(".modal-overlay");
+
+            // Close the modal
+            modal.classList.remove("active");
+
+            // Re-enable page scrolling
+            document.body.style.overflow = "";
+          });
+        });
+
+        // Close modal when clicking outside the dialog
+        modalOverlays.forEach((overlay) => {
+          overlay.addEventListener("click", function (e) {
+            // If the click is directly on the overlay (not on its children)
+            if (e.target === overlay) {
+              overlay.classList.remove("active");
+              document.body.style.overflow = "";
+            }
+          });
+        });
+
+        // Close modal with Escape key
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") {
+            modalOverlays.forEach((overlay) => {
+              if (overlay.classList.contains("active")) {
+                overlay.classList.remove("active");
+                document.body.style.overflow = "";
+              }
+            });
+          }
+        });
+      });
+    </script>
+
+    <script src="assets/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Final Check Lab — Certifications</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+
+    <!-- Page-specific styles for Partners section -->
+    <style>
+      .partners {
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .partners h3 {
+        margin-bottom: 24px;
+        font-size: 24px;
+      }
+      .logo-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+      .logo-container img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+      }
+      /* CUSTOM FONTS FOR CERTIFICATION PAGE */
+      body {
+        font-family: 'Source Sans Pro', system-ui, -apple-system, sans-serif;
+      }
+      
+      .eyebrow {
+        font-family: 'Playfair Display', Georgia, serif !important;
+        font-weight: 700;
+        font-size: 2.2rem;
+        color: #c7d2e4;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.02em;
+      }
+      
+      .eyebrow p {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 400;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: rgba(199, 210, 228, 0.9);
+        margin-top: 1rem;
+        max-width: 800px;
+        text-shadow: none;
+        letter-spacing: normal;
+        text-transform: none;
+      }
+      
+      h2 {
+        font-family: 'Playfair Display', Georgia, serif !important;
+        font-weight: 600;
+        color: #ffffff;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+        letter-spacing: 0.01em;
+      }
+
+      /* NAVIGATION */
+
+      .nav {
+        position: fixed;
+        inset: 0 0 auto 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 22px;
+        background: rgba(6, 26, 51, 0.8);
+        backdrop-filter: blur(1px);
+        z-index: 100;
+      }
+
+      .navlinks {
+        display: flex;
+        gap: 20px;
+      }
+
+      .navlinks a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .navlinks a.active {
+        text-decoration: underline;
+        color: var(--accent);
+      }
+
+      /* PAGE */
+      .page {
+        padding: 120px 22px 80px;
+        background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.4em;
+        color: var(--accent);
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        margin: 10px 0 20px;
+      }
+      .lead {
+        max-width: 820px;
+        color: var(--muted);
+      }
+
+      /* GRID */
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .card {
+        flex: 1 1 calc(20% - 16px);
+        max-width: 220px;
+        min-width: 180px;
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        background: var(--card);
+        cursor: pointer;
+        position: relative;
+      }
+
+      /* Large screens - all 5 in one row */
+      @media (min-width: 1024px) {
+        .grid {
+          flex-wrap: nowrap;
+          gap: 24px;
+          max-width: 1200px;
+          margin: 20px auto 0;
+        }
+        
+        .card {
+          flex: 1;
+          max-width: none;
+          min-width: 200px;
+        }
+      }
+
+      .card img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Overlay for hover text */
+
+      /* FOOTER */
+      footer {
+        padding: 40px 22px;
+        background: #05142a;
+        color: #9fb5d4;
+        text-align: center;
+      }
+
+      /* LIGHTBOX */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.9);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .lightbox img {
+        max-width: 90%;
+        max-height: 80%;
+        border-radius: 10px;
+      }
+      .lightbox .close,
+      .lightbox .prev,
+      .lightbox .next {
+        position: absolute;
+        color: #fff;
+        font-size: 2rem;
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .lightbox .close {
+        top: 20px;
+        right: 20px;
+      }
+      .lightbox .prev {
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .lightbox .next {
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .card {
+          flex: 1 1 calc(50% - 20px);
+        }
+      }
+      @media (max-width: 600px) {
+        .card {
+          flex: 1 1 100%;
+        }
+      }
+
+      /* Search Icon in Navbar */
+      .nav-search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-icon {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: background 0.3s ease;
+      }
+
+      .search-icon:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .search-input-container {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        margin-top: 10px;
+        background: rgba(6, 26, 51, 0.95);
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        z-index: 100;
+        min-width: 280px;
+      }
+
+      .search-input-container.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .search-input-container input {
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .search-input-container input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .search-input-container button {
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        background: var(--accent);
+        color: #061a33;
+        margin-top: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+
+      .search-input-container button:hover {
+        background: #a0c4e4;
+      }
+
+      @media (max-width: 900px) {
+        .nav-search-container {
+          order: -1;
+          margin-right: auto;
+          margin-left: 10px;
+        }
+        
+        .search-input-container {
+          right: auto;
+          left: 0;
+          min-width: 250px;
+        }
+      }
+
+      /* Acknowledgment section styling */
+      .acknowledgment .eyebrow {
+        font-family: 'Playfair Display', Georgia, serif !important;
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: #c7d2e4;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        margin-bottom: 1rem;
+        letter-spacing: 0.02em;
+        text-transform: capitalize;
+      }
+      
+      /* Make acknowledgment images smaller */
+      .acknowledgment .grid {
+        justify-content: center;
+        gap: 30px;
+      }
+      
+      .acknowledgment .card {
+        flex: 0 0 auto;
+        max-width: 300px;
+        min-width: 250px;
+        width: 300px;
+      }
+      
+      .acknowledgment .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      
+      /* Enhanced card hover effects */
+      .card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Enhanced responsive styles for certifications page */
+      @media (max-width: 768px) {
+        .nav {
+          padding: 12px 16px;
+        }
+        
+        .page {
+          padding: 100px 16px 60px;
+        }
+        
+        .container {
+          padding: 0 16px;
+        }
+        
+        h2 {
+          font-size: 2rem;
+          margin: 8px 0 16px;
+        }
+        
+        .eyebrow {
+          font-size: 1.8rem;
+          letter-spacing: 0.02em;
+        }
+        
+        .eyebrow p {
+          font-size: 1rem;
+        }
+        
+        .lead {
+          font-size: 15px;
+          line-height: 1.6;
+        }
+        
+        .grid {
+          gap: 16px;
+          margin-top: 16px;
+        }
+        
+        .partners {
+          padding: 30px 16px;
+        }
+        
+        .partners h3 {
+          font-size: 20px;
+          margin-bottom: 20px;
+        }
+        
+        .logo-container {
+          gap: 20px;
+        }
+        
+        .logo-container img {
+          width: 60px;
+          height: 60px;
+        }
+        
+        /* Responsive acknowledgment images */
+        .acknowledgment .card {
+          max-width: 250px;
+          width: 250px;
+        }
+        
+        .acknowledgment .card img {
+          height: 160px;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .nav {
+          padding: 10px 12px;
+        }
+        
+        .page {
+          padding: 90px 12px 40px;
+        }
+        
+        h2 {
+          font-size: 1.6rem;
+        }
+        
+        .eyebrow {
+          font-size: 1.5rem;
+        }
+        
+        .eyebrow p {
+          font-size: 0.9rem;
+        }
+        
+        .acknowledgment .eyebrow {
+          font-size: 1.4rem;
+        }
+        
+        .lead {
+          font-size: 14px;
+        }
+        
+        .grid {
+          gap: 12px;
+        }
+        
+        .partners {
+          padding: 20px 12px;
+        }
+        
+        .partners h3 {
+          font-size: 18px;
+          margin-bottom: 16px;
+        }
+        
+        .logo-container {
+          gap: 15px;
+        }
+        
+        .logo-container img {
+          width: 50px;
+          height: 50px;
+        }
+        
+        /* Mobile responsive for acknowledgment images */
+        .acknowledgment .card {
+          max-width: 200px;
+          width: 200px;
+          min-width: 180px;
+        }
+        
+        .acknowledgment .card img {
+          height: 140px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="index.html" aria-label="Final Check Lab home">
+        <div class="logo">
+          <img src="mylog.png" alt="Final Check Lab logo" />
+        </div>
+        <span>Final Check Lab</span>
+      </a>
+      
+      <div class="navlinks" id="navlinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Our Service</a>
+        <a href="certifications.html" class="active">Certification</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div class="nav-search-container">
+        <button class="search-icon" id="searchToggle" aria-label="Search">
+          🔍
+        </button>
+        <div class="search-input-container" id="searchContainer">
+          <input
+            type="text"
+            id="nav-page-search"
+            placeholder="Search pages..."
+            aria-label="Search pages"
+          />
+          <button onclick="searchPageFromNav()">Search</button>
+        </div>
+      </div>
+
+      <button
+        class="burger"
+        id="burger"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="navlinks"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <main class="page">
+      <div class="container">
+        <div class="eyebrow">Our Certification
+          <p>
+            
+
+Final Check Lab is fully certified to perform Inspections, Testing,
+ and Verification in accordance with National and International Standards. Our certifications 
+reflect our commitment to safety, accuracy, and quality in every service we provide.
+          </p>
+        </div>
+
+
+        <div class="grid">
+          <div class="card">
+            <img
+              src="certt1.jpg"
+              alt="ISO/IEC 17025"
+            />
+            <div class="card-overlay"></div>
+          </div>
+          <div class="card">
+            <img src="certt2.jpg" alt="Good Laboratory Practice" />
+            <div class="card-overlay"></div>
+          </div>
+          <div class="card">
+            <img src="certt3.jpg" alt="ISO 9001" />
+            <div class="card-overlay"></div>
+          </div>
+          <div class="card">
+            <img src="izooo.jpg" alt="Quality Management System" />
+            <div class="card-overlay"></div>
+          </div>
+          <div class="card">
+            <img src="iiiiooo.jpg" alt="Environmental Management" />
+            <div class="card-overlay"></div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acknowledgment Section -->
+      <section class="acknowledgment container">
+        <div class="eyebrow">Acknowledgment</div>
+        <h2 style="text-align: center">
+          Acknowledgments Given to Our Laboratory
+        </h2>
+
+        <div class="grid">
+          <div class="card">
+            <img
+              src="swpas1.jpg"
+              alt="Acknowledgment 1"
+            />
+          </div>
+          <div class="card">
+            <img
+              src="swpass3.jpg"
+              alt="Acknowledgment 2"
+            />
+          </div>
+          
+        </div>
+      </section>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <button class="close" onclick="closeLightbox()">×</button>
+      <button class="prev" onclick="changeSlide(-1)">‹</button>
+      <img id="lightbox-img" src="" />
+      <button class="next" onclick="changeSlide(1)">›</button>
+    </div>
+
+    <footer>
+      © <span id="y"></span> Final Check Lab • All rights reserved
+    </footer>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+
+      const images = document.querySelectorAll(".card img");
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightbox-img");
+      let currentIndex = 0;
+
+      images.forEach((img, index) => {
+        img.addEventListener("click", () => {
+          currentIndex = index;
+          openLightbox();
+        });
+      });
+
+      function openLightbox() {
+        lightbox.style.display = "flex";
+        lightboxImg.src = images[currentIndex].src;
+      }
+
+      function closeLightbox() {
+        lightbox.style.display = "none";
+      }
+
+      function changeSlide(direction) {
+        currentIndex += direction;
+        if (currentIndex < 0) currentIndex = images.length - 1;
+        if (currentIndex >= images.length) currentIndex = 0;
+        lightboxImg.src = images[currentIndex].src;
+      }
+
+      // Close if clicked outside the image
+      lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      // Page search functionality for navbar
+      function searchPageFromNav() {
+        const input = document.getElementById('nav-page-search');
+        const searchTerm = input.value.trim().toLowerCase();
+        
+        const pages = {
+          'home': 'index.html',
+          'index': 'index.html',
+          'about': 'about.html',
+          'about us': 'about.html',
+          'services': 'services.html',
+          'our service': 'services.html',
+          'our services': 'services.html',
+          'certification': 'certifications.html',
+          'certifications': 'certifications.html',
+          'contact': 'contact.html',
+          'contact us': 'contact.html'
+        };
+
+        if (pages[searchTerm]) {
+          window.location.href = pages[searchTerm];
+        } else {
+          // Optional: Show a message if page not found
+          input.style.border = '1px solid red';
+          setTimeout(() => {
+            input.style.border = '1px solid rgba(255, 255, 255, 0.3)';
+          }, 1000);
+        }
+      }
+
+      // Search toggle functionality
+      document.getElementById('searchToggle').addEventListener('click', function() {
+        const container = document.getElementById('searchContainer');
+        container.classList.toggle('active');
+        
+        if (container.classList.contains('active')) {
+          document.getElementById('nav-page-search').focus();
+        }
+      });
+
+      // Close search when clicking outside
+      document.addEventListener('click', function(e) {
+        const container = document.getElementById('searchContainer');
+        const toggle = document.getElementById('searchToggle');
+        
+        if (!container.contains(e.target) && !toggle.contains(e.target)) {
+          container.classList.remove('active');
+        }
+      });
+
+      // Add enter key support for navbar search
+      document.getElementById('nav-page-search').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          searchPageFromNav();
+        }
+      });
+    </script>
+    
+    <script src="assets/main.js"></script>
+  </body>
+</html>

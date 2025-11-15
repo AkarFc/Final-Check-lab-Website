@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Final Check Lab — Contact</title>
+    <!-- shared head -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <!-- EmailJS Library -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+        emailjs.init("HD7ic6DXQ68_hcTMV");
+      })();
+    </script>
+    <style>
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--text, #061a33);
+        font-size: 18px;
+        font-weight: 500;
+        padding: 12px 16px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(0);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+        transition: left 0.6s ease;
+      }
+
+      .contact-item:hover {
+        transform: translateY(-4px) translateX(8px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(199, 210, 228, 0.2);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .contact-item:hover::before {
+        left: 100%;
+      }
+
+      .contact-item:active {
+        transform: translateY(-2px) translateX(4px);
+        transition: all 0.15s ease;
+      }
+
+      .contact-item img {
+        height: 40px;
+        width: 40px;
+        margin-right: 12px;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .contact-item:hover img {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      /* Search Icon in Navbar */
+      .nav-search-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-icon {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: background 0.3s ease;
+      }
+
+      .search-icon:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .search-input-container {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        margin-top: 10px;
+        background: rgba(6, 26, 51, 0.95);
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        z-index: 100;
+        min-width: 280px;
+      }
+
+      .search-input-container.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .search-input-container input {
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 14px;
+        outline: none;
+      }
+
+      .search-input-container input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .search-input-container button {
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+        border: none;
+        background: var(--accent);
+        color: #061a33;
+        margin-top: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s ease;
+      }
+
+      .search-input-container button:hover {
+        background: #a0c4e4;
+      }
+
+      @media (max-width: 900px) {
+        .nav-search-container {
+          order: -1;
+          margin-right: auto;
+          margin-left: 10px;
+        }
+
+        .search-input-container {
+          right: auto;
+          left: 0;
+          min-width: 250px;
+        }
+      }
+
+      /* Feedback Form Styles */
+      .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .feedback-form-container {
+        background: rgba(10, 40, 80, 0.4);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .feedback-form-container h3 {
+        color: #00aaff;
+        font-size: 1.8rem;
+        margin-top: 0;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .feedback-form-container h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(to right, #00aaff, transparent);
+      }
+
+      .feedback-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .form-group label {
+        color: #e6e6e6;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        padding: 12px 15px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+        font-size: 1rem;
+        font-family: "Inter", sans-serif;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #00aaff;
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.2);
+      }
+
+      .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .form-group select {
+        appearance: none;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        background-size: 16px;
+        padding-right: 40px;
+      }
+
+      .form-group select option {
+        background: #061a33;
+        color: white;
+      }
+
+      .form-submit {
+        margin-top: 10px;
+        padding: 14px 0;
+        border-radius: 30px;
+        border: none;
+        background: linear-gradient(to right, #00aaff, #0077cc);
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .form-submit:hover {
+        background: linear-gradient(to right, #0088cc, #005599);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .form-submit:active {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .form-message {
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+        display: none;
+      }
+
+      .form-message.success {
+        background: rgba(0, 255, 0, 0.1);
+        border: 1px solid rgba(0, 255, 0, 0.3);
+        color: #d4ffda;
+      }
+
+      .form-message.error {
+        background: rgba(255, 0, 0, 0.1);
+        border: 1px solid rgba(255, 0, 0, 0.3);
+        color: #ffd4d4;
+      }
+
+      /* Rating stars */
+      .rating-stars {
+        display: flex;
+        gap: 10px;
+        direction: rtl;
+      }
+
+      .rating-stars input {
+        display: none;
+      }
+
+      .rating-stars label {
+        cursor: pointer;
+        font-size: 30px;
+        color: rgba(255, 255, 255, 0.3);
+        transition: color 0.2s ease;
+      }
+
+      .rating-stars label:hover,
+      .rating-stars label:hover ~ label,
+      .rating-stars input:checked ~ label {
+        color: #00aaff;
+      }
+
+      /* Map Container Styles */
+      .map-container {
+        background: rgba(10, 40, 80, 0.4);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        height: fit-content;
+      }
+
+      .map-container h3 {
+        color: #00aaff;
+        font-size: 1.8rem;
+        margin-top: 0;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .map-container h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(to right, #00aaff, transparent);
+      }
+
+      .map-wrapper {
+        margin-bottom: 20px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+      }
+
+      .map-wrapper:hover {
+        transform: translateY(-2px);
+      }
+
+      .location-info {
+        text-align: center;
+      }
+
+      .location-info p {
+        color: #e6e6e6;
+        margin: 8px 0;
+        font-size: 1rem;
+      }
+
+      .location-info p:first-child {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #00aaff;
+      }
+
+      .directions-link {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 12px 25px;
+        background: linear-gradient(to right, #00aaff, #0077cc);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.9rem;
+      }
+
+      .directions-link:hover {
+        background: linear-gradient(to right, #0088cc, #005599);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (max-width: 900px) {
+        .contact-container {
+          grid-template-columns: 1fr;
+        }
+
+        .map-container {
+          padding: 25px;
+          margin-top: 30px;
+        }
+
+        .map-container h3 {
+          font-size: 1.5rem;
+          margin-bottom: 20px;
+        }
+
+        .map-wrapper iframe {
+          height: 250px;
+        }
+      }
+
+      /* Additional responsive styles for contact page */
+      @media (max-width: 768px) {
+        .contact-links {
+          gap: 12px;
+        }
+        
+        .contact-item {
+          font-size: 16px;
+          padding: 8px;
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .contact-item img {
+          height: 35px;
+          width: 35px;
+          margin-right: 10px;
+        }
+        
+        .rating-stars label {
+          font-size: 25px;
+        }
+        
+        .search-input-container {
+          min-width: 250px;
+          padding: 12px;
+        }
+        
+        .search-input-container input {
+          font-size: 14px;
+          padding: 8px 12px;
+        }
+        
+        .search-input-container button {
+          padding: 8px;
+          font-size: 14px;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .map-container {
+          padding: 20px;
+        }
+
+        .map-container h3 {
+          font-size: 1.4rem;
+        }
+
+        .map-wrapper iframe {
+          height: 220px;
+        }
+
+        .location-info p {
+          font-size: 0.9rem;
+        }
+
+        .directions-link {
+          padding: 10px 20px;
+          font-size: 0.85rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .contact-links {
+          gap: 10px;
+        }
+        
+        .contact-item {
+          font-size: 14px;
+          padding: 6px;
+        }
+        
+        .contact-item img {
+          height: 30px;
+          width: 30px;
+          margin-right: 8px;
+        }
+        
+        .rating-stars label {
+          font-size: 20px;
+        }
+        
+        .search-input-container {
+          min-width: 220px;
+          padding: 10px;
+        }
+
+        .map-container {
+          padding: 15px;
+        }
+
+        .map-container h3 {
+          font-size: 1.2rem;
+          margin-bottom: 15px;
+        }
+
+        .map-wrapper iframe {
+          height: 200px;
+        }
+
+        .location-info p {
+          font-size: 0.85rem;
+        }
+
+        .directions-link {
+          padding: 8px 16px;
+          font-size: 0.8rem;
+        }
+      }
+
+      /* Call Modal Styles */
+      .call-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .call-modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .call-modal-content {
+        background: linear-gradient(135deg, #061a33 0%, #0a2d5c 100%);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(199, 210, 228, 0.2);
+        max-width: 450px;
+        width: 90%;
+        max-height: 80vh;
+        overflow: hidden;
+        transform: translateY(-20px);
+        transition: transform 0.3s ease;
+      }
+
+      .call-modal.active .call-modal-content {
+        transform: translateY(0);
+      }
+
+      .call-modal-header {
+        padding: 25px 30px;
+        background: rgba(199, 210, 228, 0.1);
+        border-bottom: 1px solid rgba(199, 210, 228, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .call-modal-header h3 {
+        color: #c7d2e4;
+        margin: 0;
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+
+      .call-modal-close {
+        background: none;
+        border: none;
+        color: #c7d2e4;
+        font-size: 28px;
+        cursor: pointer;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+
+      .call-modal-close:hover {
+        background: rgba(199, 210, 228, 0.2);
+        color: #ffffff;
+      }
+
+      .call-modal-body {
+        padding: 30px;
+      }
+
+      .call-modal-body p {
+        color: #c7d2e4;
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      .call-options {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .call-option {
+        display: flex;
+        align-items: center;
+        padding: 18px 20px;
+        background: rgba(199, 210, 228, 0.05);
+        border: 1px solid rgba(199, 210, 228, 0.1);
+        border-radius: 15px;
+        text-decoration: none;
+        color: #c7d2e4;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .call-option::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(199, 210, 228, 0.1), transparent);
+        transition: left 0.6s ease;
+      }
+
+      .call-option:hover {
+        background: rgba(199, 210, 228, 0.15);
+        border-color: rgba(199, 210, 228, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .call-option:hover::before {
+        left: 100%;
+      }
+
+      .call-option-icon {
+        font-size: 24px;
+        margin-right: 15px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(199, 210, 228, 0.1);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+      }
+
+      .call-option:hover .call-option-icon {
+        background: rgba(199, 210, 228, 0.2);
+        transform: scale(1.1);
+      }
+
+      .call-option-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .call-option-text strong {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .call-option-text span {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+
+      @media (max-width: 480px) {
+        .call-modal-content {
+          width: 95%;
+        }
+        
+        .call-modal-header {
+          padding: 20px 25px;
+        }
+        
+        .call-modal-header h3 {
+          font-size: 1.1rem;
+        }
+        
+        .call-modal-body {
+          padding: 25px 20px;
+        }
+        
+        .call-option {
+          padding: 15px;
+        }
+        
+        .call-option-icon {
+          font-size: 20px;
+          width: 35px;
+          height: 35px;
+          margin-right: 12px;
+        }
+        
+        .call-option-text strong {
+          font-size: 1rem;
+        }
+        
+        .call-option-text span {
+          font-size: 0.85rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- nav -->
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="index.html" aria-label="Final Check Lab home">
+        <div class="logo">
+          <img src="mylog.png" alt="Final Check Lab logo" />
+        </div>
+        <span>Final Check Lab</span>
+      </a>
+
+      <div class="navlinks" id="navlinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Our Service</a>
+        <a href="certifications.html">Certification</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div class="nav-search-container">
+        <button class="search-icon" id="searchToggle" aria-label="Search">
+          🔍
+        </button>
+        <div class="search-input-container" id="searchContainer">
+          <input
+            type="text"
+            id="nav-page-search"
+            placeholder="Search pages..."
+            aria-label="Search pages"
+          />
+          <button onclick="searchPageFromNav()">Search</button>
+        </div>
+      </div>
+
+      <button
+        class="burger"
+        id="burger"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <main class="page">
+      <div class="container contact-container">
+        <div class="info">
+          <div class="eyebrow">For protection and Safety</div>
+          <h2>Get in Touch With Us</h2>
+          <p class="lead">
+            At Final Check Lab, communication is important to us. That’s why we
+            provide several ways for you to connect with our team. You can call
+            us directly for immediate assistance, send us an email for detailed
+            inquiries, or connect with us through our official Instagram and
+            YouTube channels to stay informed about our latest updates and
+            services. We value every message and every call, and we’re committed
+            to responding promptly to your needs.
+          </p>
+          <p><br />Final Check Lab<br />tanjaro ,sulaimaniyah, Iraq</p>
+        </div>
+
+        <div class="contact-links">
+          <a href="#" class="contact-item" onclick="openCallModal(event)">
+            <img src="fffffffffff.jpg" alt="Phone" />
+            <span>Call Us</span>
+          </a>
+
+          <a
+            href="mailto:info@finalchecklab.org?subject=Inquiry from Final Check Lab Website"
+            class="contact-item"
+            target="_blank"
+          >
+            <img src="hjhjjh.jpg" alt="Email" />
+            <span>Email Us</span>
+          </a>
+
+          <a
+            href="https://www.facebook.com/p/Final-Check-Lab-61555693791037/"
+            class="contact-item"
+            target="_blank"
+          >
+            <img src="fb.logg" alt="Facebook" />
+            <span>Facebook</span>
+          </a>
+
+          <a
+            href="https://www.instagram.com/finalchecklaboratory/"
+            class="contact-item"
+            target="_blank"
+          >
+            <img src="assets\ig.logggg.webp" alt="Instagram" />
+            <span>Instagram</span>
+          </a>
+
+          <a
+            href="https://www.youtube.com/@FinalCheckLab"
+            class="contact-item"
+            target="_blank"
+          >
+            <img src="youtube-6279763.png" alt="YouTube" />
+            <span>YouTube</span>
+          </a>
+
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSegbGPKVA5d33gxq-opMOslfi_ECg2iie3F3ljjUANye6o1Jg/viewform?usp=sharing&ouid=115149554425217399412"
+            class="contact-item"
+            target="_blank"
+          >
+            <img src="assets/mylog.png" alt="Feedback" />
+            <span>Customer Feedback Portal</span>
+          </a>
+        </div>
+
+        <!-- Location Map -->
+        <div class="map-container">
+          <h3>Our Location</h3>
+          <div class="map-wrapper">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3194.8397851276737!2d45.4317178!3d35.5064446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x400029203f390ac1%3A0x21c2a98344a62236!2sFinal%20check%20%D9%81%D8%A7%DB%8C%D9%86%DB%95%DA%B5%20%DA%86%DB%8E%DA%A9%E2%80%AD!5e0!3m2!1sen!2s!4v1729449600000!5m2!1sen!2s"
+              width="100%"
+              height="300"
+              style="border:0; border-radius: 15px;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Final Check Lab Location"
+            ></iframe>
+          </div>
+          <div class="location-info">
+            <p><strong>Final Check Lab</strong></p>
+            <p>Tanjaro, Sulaimaniyah, Iraq</p>
+            <a 
+              href="https://www.google.com/maps/place/Final+check+%D9%81%D8%A7%DB%8C%D9%86%DB%95%DA%B5+%DA%86%DB%8E%DA%A9%E2%80%AD/@35.5064446,45.4317178,1152m/data=!3m1!1e3!4m8!3m7!1s0x400029203f390ac1:0x21c2a98344a62236!8m2!3d35.5064446!4d45.4368784!9m1!1b1!16s%2Fg%2F11ssd8qs_h?entry=ttu&g_ep=EgoyMDI1MTAxNC4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              class="directions-link"
+            >
+              Get Directions
+            </a>
+          </div>
+        </div>
+
+        <!-- Customer Feedback Form -->
+        <div class="feedback-form-container">
+          <h3>Send Us Feedback</h3>
+          <form id="feedbackForm" class="feedback-form">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                name="user_name"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="user_email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number (Optional)</label>
+              <input
+                type="tel"
+                id="phone"
+                name="user_phone"
+                placeholder="Enter your phone number"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="service">Service Used</label>
+              <select id="service" name="service" required>
+                <option value="" disabled selected>Select a service</option>
+                <option value="lpg-inspection">LPG System Inspection</option>
+                <option value="certification">storage tank</option>
+                <option value="consultation">
+                  Storage tank & systyem inspection
+                </option>
+                <option value="training">accessories test</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="rating">Rate Your Experience</label>
+              <div class="rating-stars">
+                <input type="radio" id="star5" name="rating" value="5" /><label
+                  for="star5"
+                  >★</label
+                >
+                <input type="radio" id="star4" name="rating" value="4" /><label
+                  for="star4"
+                  >★</label
+                >
+                <input type="radio" id="star3" name="rating" value="3" /><label
+                  for="star3"
+                  >★</label
+                >
+                <input type="radio" id="star2" name="rating" value="2" /><label
+                  for="star2"
+                  >★</label
+                >
+                <input type="radio" id="star1" name="rating" value="1" /><label
+                  for="star1"
+                  >★</label
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Your Feedback</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Please share your experience, suggestions, or concerns..."
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="improvements">How Can We Improve?</label>
+              <textarea
+                id="improvements"
+                name="improvements"
+                placeholder="Any suggestions for how we can serve you better?"
+              ></textarea
+            </div>
+
+            <button type="submit" class="form-submit">Submit Feedback</button>
+
+            <div id="formSuccess" class="form-message success">
+              Thank you for your feedback! We appreciate your input and will use
+              it to improve our services.
+            </div>
+
+            <div id="formError" class="form-message error">
+              There was an error submitting your feedback. Please try again
+              later.
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- Call Options Modal -->
+    <div class="call-modal" id="callModal">
+      <div class="call-modal-content">
+        <div class="call-modal-header">
+          <h3>Choose How to Contact Us</h3>
+          <button class="call-modal-close" onclick="closeCallModal()">&times;</button>
+        </div>
+        <div class="call-modal-body">
+          <p>Select your preferred method to contact us at <strong>+964770 296 2020</strong></p>
+          
+          <div class="call-options">
+            <a href="tel:+9647702962020" class="call-option" onclick="closeCallModal()">
+              <div class="call-option-icon">📞</div>
+              <div class="call-option-text">
+                <strong>Regular Call</strong>
+                <span>Direct phone call</span>
+              </div>
+            </a>
+            
+            <a href="https://wa.me/9647702962020" class="call-option" target="_blank" onclick="closeCallModal()">
+              <div class="call-option-icon">💬</div>
+              <div class="call-option-text">
+                <strong>WhatsApp</strong>
+                <span>Chat or call via WhatsApp</span>
+              </div>
+            </a>
+            
+            <a href="viber://contact?number=+9647702962020" class="call-option" onclick="closeCallModal()">
+              <div class="call-option-icon">💜</div>
+              <div class="call-option-text">
+                <strong>Viber</strong>
+                <span>Chat or call via Viber</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        © <span id="y"></span> Final Check Lab • All rights reserved
+      </div>
+    </footer>
+
+    <script src="assets/main.js"></script>
+    <script>
+      // Set current year
+      document.getElementById("y").textContent = new Date().getFullYear();
+
+      // Page search functionality for navbar
+      function searchPageFromNav() {
+        const input = document.getElementById("nav-page-search");
+        const searchTerm = input.value.trim().toLowerCase();
+
+        const pages = {
+          home: "index.html",
+          index: "index.html",
+          about: "about.html",
+          "about us": "about.html",
+          services: "services.html",
+          "our service": "services.html",
+          "our services": "services.html",
+          certification: "certifications.html",
+          certifications: "certifications.html",
+          contact: "contact.html",
+          "contact us": "contact.html",
+        };
+
+        if (pages[searchTerm]) {
+          window.location.href = pages[searchTerm];
+        } else {
+          // Optional: Show a message if page not found
+          input.style.border = "1px solid red";
+          setTimeout(() => {
+            input.style.border = "1px solid rgba(255, 255, 255, 0.3)";
+          }, 1000);
+        }
+      }
+
+      // Search toggle functionality
+      document
+        .getElementById("searchToggle")
+        .addEventListener("click", function () {
+          const container = document.getElementById("searchContainer");
+          container.classList.toggle("active");
+
+          if (container.classList.contains("active")) {
+            document.getElementById("nav-page-search").focus();
+          }
+        });
+
+      // Close search when clicking outside
+      document.addEventListener("click", function (e) {
+        const container = document.getElementById("searchContainer");
+        const toggle = document.getElementById("searchToggle");
+
+        if (!container.contains(e.target) && !toggle.contains(e.target)) {
+          container.classList.remove("active");
+        }
+      });
+
+      document
+        .getElementById("nav-page-search")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            searchPageFromNav();
+          }
+        });
+
+      (function () {
+        emailjs.init("HD7ic6DXQ68_hcTMV");
+      })();
+
+      document
+        .getElementById("feedbackForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const submitButton = this.querySelector('button[type="submit"]');
+          const originalButtonText = submitButton.textContent;
+          submitButton.textContent = "Sending...";
+          submitButton.disabled = true;
+
+          const formData = {
+            user_name: document.getElementById("name").value,
+            user_email: document.getElementById("email").value,
+            user_phone: document.getElementById("phone").value,
+            service: document.getElementById("service").value,
+            rating:
+              document.querySelector('input[name="rating"]:checked')?.value ||
+              "Not rated",
+            message: document.getElementById("message").value,
+            improvements: document.getElementById("improvements").value,
+          };
+
+          // Send via EmailJS
+          emailjs
+            .send("service_cejsjts", "template_zmaoz56", formData)
+            .then(function () {
+              // ✅ Successx
+              document.getElementById("formError").style.display = "none";
+              document.getElementById("formSuccess").style.display = "block";
+
+              // Reset form
+              document.getElementById("feedbackForm").reset();
+
+              // Clear rating
+              document
+                .querySelectorAll('input[name="rating"]')
+                .forEach((radio) => (radio.checked = false));
+
+              // Scroll to success
+              document
+                .getElementById("formSuccess")
+                .scrollIntoView({ behavior: "smooth" });
+
+              setTimeout(() => {
+                document.getElementById("formSuccess").style.display = "none";
+              }, 5000);
+            })
+            .catch(function (error) {
+              // ❌ Error
+              console.error("EmailJS error:", error);
+              document.getElementById("formError").style.display = "block";
+              document.getElementById("formSuccess").style.display = "none";
+
+              // Scroll to error
+              document
+                .getElementById("formError")
+                .scrollIntoView({ behavior: "smooth" });
+
+              setTimeout(() => {
+                document.getElementById("formError").style.display = "none";
+              }, 5000);
+            })
+            .finally(function () {
+              // ✅ Always restore button
+              submitButton.textContent = originalButtonText;
+              submitButton.disabled = false;
+            });
+        });
+
+      // Call Modal Functions
+      function openCallModal(event) {
+        event.preventDefault();
+        const modal = document.getElementById('callModal');
+        modal.classList.add('active');
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeCallModal();
+          }
+        });
+      }
+
+      function closeCallModal() {
+        const modal = document.getElementById('callModal');
+        modal.classList.remove('active');
+      }
+
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeCallModal();
+        }
+      });
+    </script>
+  </body>
+</html>
